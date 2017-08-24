@@ -25,14 +25,19 @@ class DefaultPrefixCommand extends SPrefixCommand{
     }
     if(!isset($args[0])){
       $sender->sendMessage(SPrefix::$prefix . "사용법 : " . $this->getUsage() . " - " . $this->getDescription());
-      $sender->sendMessage(SPrefix::$prefix . "<prefix> 를 null로 입력시 prefix 설정값을 해제합니다.");
+      $sender->sendMessage(SPrefix::$prefix . "<prefix> 를 reset로 입력시 prefix 설정값을 해제합니다.");
       return true;
     }
     $prefix = implode(" ", $args);
-    $this->owner->setDefaultPrefix($prefix === "null" ? null : $prefix);
+    if($prefix === "reset"){
+      $this->owner->setDefaultPrefix(null);
+      $sender->sendMessage(SPrefix::$prefix . "Prefix를 원래값으로 사용하도록 설정하였습니다.");
+    }else{
+      $this->owner->setDefaultPrefix($prefix);
+      $sender->sendMessage(SPrefix::$prefix . "Prefix를 \"" . $prefix . "\" 으로 설정하였습니다.");
+    }
     $this->owner->updatePrefix();
     $this->owner->save();
-    $sender->sendMessage(SPrefix::$prefix . " Prefix를 \"" . $prefix . "\" 으로 설정하였습니다.");
     return true;
   }
 }
