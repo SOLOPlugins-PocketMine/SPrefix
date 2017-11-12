@@ -20,6 +20,7 @@ class SPrefix extends PluginBase{
     }else{
       $this->prefixSetting = ["plugins" => []];
     }
+    $this->updatePrefix();
 
     foreach([
       "DefaultPrefixCommand",
