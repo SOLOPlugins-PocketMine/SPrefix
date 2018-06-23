@@ -2,12 +2,11 @@
 
 namespace solo\sprefix\command;
 
+use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-
 use solo\sprefix\SPrefix;
-use solo\sprefix\SPrefixCommand;
 
-class DefaultPrefixCommand extends SPrefixCommand{
+class DefaultPrefixCommand extends Command{
 
   private $owner;
 
@@ -18,7 +17,7 @@ class DefaultPrefixCommand extends SPrefixCommand{
     $this->owner = $owner;
   }
 
-  public function _execute(CommandSender $sender, string $label, array $args) : bool{
+  public function execute(CommandSender $sender, string $label, array $args) : bool{
     if(!$sender->hasPermission($this->getPermission())){
       $sender->sendMessage(SPrefix::$prefix . "이 명령을 실행할 권한이 없습니다.");
       return true;
